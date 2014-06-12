@@ -3,9 +3,9 @@ require 'poet'
 class Filefind < Poet::Scanner
 	self.mod_name = "File Finder"
 	self.description = "Locate sensative files on target(s)."
+  self.title = 'File Finder'
 
 	def setup
-		# Print title
 		puts 
 
 		@timeout = 0
@@ -26,10 +26,6 @@ class Filefind < Poet::Scanner
 		ext.split(',').each {|file| @command << " && dir /s /b #{file.strip}"}
 		create_folder("#{@log}/loot") unless folder_exists("#{@log}/loot")
 		create_folder("#{@log}/loot/filefinder") unless folder_exists("#{@log}/loot/filefinder")
-	
-		puts
-		title = "File Finder"
-		puts color_header(title)
 	end
 
 	def run(username, password, host)

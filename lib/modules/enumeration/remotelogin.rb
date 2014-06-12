@@ -3,6 +3,7 @@ require 'poet'
 class RemoteLogin < Poet::Scanner
 	self.mod_name = "Remote login validation"
 	self.description = "Identify where credentials have local administrative access."
+  self.title = 'Remote Login Validation'
 
 	def setup
 		puts
@@ -12,8 +13,6 @@ class RemoteLogin < Poet::Scanner
 			print "Do you want to look for Domain/Enterprise processes? [#{color_banner('y')}|#{color_banner('n')}]"
 			@da_check = rgets.downcase
 		end
-		puts
-		puts color_header("Remote Login Validation")
 
 		# Set up inital vars
 		@access = {}

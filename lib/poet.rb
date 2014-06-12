@@ -22,7 +22,7 @@ class Poet
 		# The smbexec_plugin is a reference used to determine if the class
 		# is used to check if a class is a plugin for smbexec (basically
 		# any class that inherits from poet)
-		attr_accessor :mod_name, :description, :smbexec_plugin, :invasive
+		attr_accessor :mod_name, :description, :smbexec_plugin, :invasive, :title
 	end
 
 	# Empty methods modules will override with their own, prevents issues if one is not needed in a module
@@ -85,6 +85,9 @@ class Poet
 			# Get timeout
 			@timeout = Menu.opts[:timeout]
 
+      # Print title of module
+      puts
+      puts color_header(self.class.title)
 			# Call setup method to initialize vars and display title
 			setup
 

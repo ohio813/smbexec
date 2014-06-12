@@ -3,13 +3,9 @@ require 'poet'
 class CheckDA < Poet::Scanner
 	self.mod_name = "Check systems for Domain Admin"
 	self.description = "Identify Domain Admin processes/logins."
+  self.title = 'Domain Admins Status'
 
 	def setup
-		# Print title
-		puts 
-		title = "Domain Admins Status"
-		puts color_header(title)
-
 		@da = {}
 	end
 
