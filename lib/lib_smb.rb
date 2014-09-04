@@ -169,7 +169,7 @@ module Lib_smb
 
 	def loggedin(username, password, host)
 		loggedin = winexe("--uninstall --system //#{host}","CMD /C tasklist /V /FO CSV")
-		loggedin = loggedin.split(/\r?\n/)
+		loggedin = loggedin.encode!('UTF-8', 'UTF-8', :invalid => :replace).split(/\r?\n/)
 		users = []
 		# Parse users
 		if loggedin
@@ -202,7 +202,7 @@ module Lib_smb
 			hit_delim = false if e.eql? "The command completed successfully."
 			# Squish white space, remove trailing white space, and split on white space
 			# to return an array of users
-			da_users << e.gsub(/\s+/, ' ').chomp(' ').split(' ') if hit_delim
+			da_users << e.encode!('UTF-8', 'UTF-8', :invalid => :replace).gsub(/\s+/, ' ').chomp(' ').split(' ') if hit_delim
 			hit_delim = true if e.eql? delim
 		}
 		domain_admins = []
