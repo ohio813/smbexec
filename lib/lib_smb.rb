@@ -198,7 +198,7 @@ module Lib_smb
 		da_users = []
 
 		# Split by new line and iterate
-		admins.split(/\r?\n/).each {|e| 
+		admins..encode!('UTF-8', 'UTF-8', :invalid => :replace).split(/\r?\n/).each {|e| 
 			hit_delim = false if e.eql? "The command completed successfully."
 			# Squish white space, remove trailing white space, and split on white space
 			# to return an array of users
