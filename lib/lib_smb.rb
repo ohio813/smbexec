@@ -198,11 +198,12 @@ module Lib_smb
 		da_users = []
 
 		# Split by new line and iterate
-		admins.encode!('UTF-8', 'UTF-8', :invalid => :replace).split(/\r?\n/).each {|e| 
+		admins.encode!('UTF-8', 'UTF-8', :invalid => :replace).split(/\r?\n/).each {|e|
+			e.encode!('UTF-8', 'UTF-8', :invalid => :replace)
 			hit_delim = false if e.eql? "The command completed successfully."
 			# Squish white space, remove trailing white space, and split on white space
 			# to return an array of users
-			da_users << e.encode!('UTF-8', 'UTF-8', :invalid => :replace).gsub(/\s+/, ' ').chomp(' ').split(' ') if hit_delim
+			da_users << e.gsub(/\s+/, ' ').chomp(' ').split(' ') if hit_delim
 			hit_delim = true if e.eql? delim
 		}
 		domain_admins = []
