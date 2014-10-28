@@ -6,12 +6,9 @@ class HashesWorkstation < Poet::Scanner
 	self.mod_name = "Workstation & Server Hashes"
 	self.description = "Gather local hashes from SAM database, cached credentials, and from within memory from targets."
 	self.invasive = true
+  self.title = 'System Credential Dump' 
 
 	def setup
-		# Print title
-		puts 
-		title = "System Credential Dump"
-		puts color_header(title)
 
 		# Make sure it has enough time to do its thing
 		if @timeout < 180

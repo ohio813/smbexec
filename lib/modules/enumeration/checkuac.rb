@@ -3,13 +3,9 @@ require 'poet'
 class CheckUAC < Poet::Scanner
 	self.mod_name = "Check systems for UAC"
 	self.description = "Check target(s) if UAC is enabled."
+  self.title = 'UAC Configuration Results'
 
 	def setup
-		# Print title
-		puts 
-		title = "UAC Configuration Results"
-		puts color_header(title)
-
 		@uac = {}
 	end
 

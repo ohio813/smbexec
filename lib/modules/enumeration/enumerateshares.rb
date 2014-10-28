@@ -5,6 +5,7 @@ class EnumerateShares < Poet::Scanner
 	self.description = "This module will enumerate shares on the " \
 	"target host. If no credentials are provided it will check " \
 	"annonymous access."
+  self.title = " "*4 + "Host".ljust(20) + "Share".ljust(16) + "Type".ljust(10) + "Description" + ' '*8
 
 	# Allows for anonymous scans
 	def initialize
@@ -19,11 +20,6 @@ class EnumerateShares < Poet::Scanner
 		else
 			puts "Enumerating Shares as #{Menu.get_banner(:creds)}"
 		end
-
-		# Print title
-		puts 
-		sharetitle = " "*4 + "Host".ljust(20) + "Share".ljust(16) + "Type".ljust(10) + "Description" + ' '*8
-		puts color_header(sharetitle)
 
 		@shares = {}
 	end

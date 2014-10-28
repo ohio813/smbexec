@@ -4,6 +4,7 @@ class Hashesdc < Poet::Scanner
 	self.mod_name = "Domain Controller"
 	self.description = "Gather hashes from the Domain Controller's NTDS.dit file."
 	self.invasive = true
+  self.title = "Dumping Domain Controler's NTDS.dit"
 
 	# Print the DCs based on DNS records before host selection
 	def initialize
@@ -90,11 +91,6 @@ class Hashesdc < Poet::Scanner
 				print_bad("Valid path required")
 			end
 		end
-
-		# Print title
-		puts
-		title = "Dumping Domain Controler's NTDS.dit"
-		puts color_header(title)
 
 		# Disable timeout for this module
 		@timeout = 0

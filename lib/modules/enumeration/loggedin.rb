@@ -3,14 +3,8 @@ require 'poet'
 class Loggedin < Poet::Scanner
 	self.mod_name = "Check systems for logged in users"
 	self.description = "Identify logged in users."
+  self.title = 'Logged in users'
 	
-	def setup
-		# Print title
-		puts 
-		title = "Logged in users"
-		puts color_header(title)
-	end
-
 	def run(username, password, host)
 		users = loggedin(username, password, host)
 		if users
