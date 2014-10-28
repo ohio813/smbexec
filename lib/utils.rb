@@ -22,7 +22,7 @@ module Utils
 	def rgets(prompt = ' ', default_value = '')
 		line = Readline.readline("#{prompt}", true)
 		line = default_value if line.empty?
-		return line
+		return line.rstrip
 	end
 
 	# Open IO to save stderr
