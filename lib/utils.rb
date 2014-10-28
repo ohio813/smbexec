@@ -416,7 +416,6 @@ class String
 		end
 		
 		regex = /(#{pattern})/
-		puts regex.inspect
 		self.gsub!(pattern){|match| "\\" + match}
 	end
 
