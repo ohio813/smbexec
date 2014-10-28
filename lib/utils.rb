@@ -391,13 +391,33 @@ end
 
 # Monkey see monkey patch
 class String
-	# Escape characters	
-	def escape(chars = '"')
+	# Escape characters
+	def escape!(chars = '"')
 		pattern = ''
-		chars.split(//).each {|char| pattern << "#{char}|"}
+		slash = false
+
+		# Split string into array of characters and build out regex
+		chars.split(//).each do |char|
+			# If it is a backslash we do something special to handle
+			if char.eql? '\\'
+				slash = true			
+			else
+				pattern << "#{char}|"
+			end
+		end
+
+		# Get rid of trailing pipe
 		pattern.chomp!("|")
+		
+		# Escape any odd numbered series of backslashes, regex FTW
+		if slash
+			regex = /(?<!\\)(\\\\)*\\(?!\\)/
+			self.gsub!(pattern){|match| "\\" + match}
+		end
+		
 		regex = /(#{pattern})/
-		self.gsub!(pattern){|match| "\\" + match}	
+		puts regex.inspect
+		self.gsub!(pattern){|match| "\\" + match}
 	end
 
 	# Return true if properly formated ntlm hash

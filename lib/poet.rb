@@ -314,9 +314,19 @@ class Poet
 	def execute_command(bin, options, command)
 		result = ''
 
-		# Testing removal of auth file
 		stderr_bins = capture_stderr_poet(Thread.current.object_id) do
-			options = %Q{-U "#{@bin_creds.escape}" #{options}}
+
+			# If the password contains a double quote or back slash, escape them
+			if @bin_creds =~ /[\\|"]/
+				@bin_creds.escape! ("\\\"")
+				# Just a warning to keep people from screwing up stuff by doing it themselves
+				print_warning("Escaping bad characters in password (\\ and \")")
+				print_warning("If you manually escaped these cntl-c, you have five seconds")
+				sleep 5
+			end
+
+			# Send full command to correct binary with logging
+			options = %Q{-U "#{@bin_creds}" #{options}}
 			if command
 				result = log("#{bin} #{options} '#{command}'") {`#{bin} #{options} '#{command}'`}
 			else
@@ -324,13 +334,16 @@ class Poet
 			end
 		end
 
+		# Empty string any Nils
 		stderr_bins ||= ""
 		result ||= ""
 
+		# Strip bad unicode characers caused by some language packs
 		error_check = result + stderr_bins
-    error_check.encode!('UTF-8', 'UTF-8', :invalid => :replace)
+    		error_check.encode!('UTF-8', 'UTF-8', :invalid => :replace)
 
-    if error_check =~ /NT_STATUS_LOGON_FAILURE/
+		# Error checking based on SMB responses
+	    	if error_check =~ /NT_STATUS_LOGON_FAILURE/
 			raise LogonError
 		elsif error_check =~ /NT_STATUS_ACCOUNT_LOCKED_OUT/
 			raise LockOutError, "locked out"
