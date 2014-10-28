@@ -391,6 +391,15 @@ end
 
 # Monkey see monkey patch
 class String
+	# Escape characters	
+	def escape(chars = '"')
+		pattern = ''
+		chars.split(//).each {|char| pattern << "#{char}|"}
+		pattern.chomp!("|")
+		regex = /(#{pattern})/
+		self.gsub!(pattern){|match| "\\" + match}	
+	end
+
 	# Return true if properly formated ntlm hash
 	def is_ntlm?
 		!!(self =~ /^[a-z0-9]{32}:[a-z0-9]{32}$/)
