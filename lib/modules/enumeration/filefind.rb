@@ -3,7 +3,7 @@ require 'poet'
 class Filefind < Poet::Scanner
 	self.mod_name = "File Finder"
 	self.description = "Locate sensative files on target(s)."
-  self.title = 'File Finder'
+	self.title = "File Finder"
 
 	def setup
 		puts 
