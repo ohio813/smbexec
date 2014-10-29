@@ -89,11 +89,12 @@ class Poet
 			# Get timeout
 			@timeout = Menu.opts[:timeout]
 
-      # Print title of module
-      puts
-      puts color_header(self.class.title)
 			# Call setup method to initialize vars and display title
 			setup
+
+			# Print title of module
+			puts
+		      	puts color_header(self.class.title)
 
 			# Set up queue and thread array
 			mutex = Mutex.new
