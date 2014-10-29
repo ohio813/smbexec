@@ -41,11 +41,17 @@ class Guide < Menu
 			Menu.opts[:nmap] = config['nmap'] || false
 			Menu.opts[:module_description] = config['module_description'] || false
 
+			# Update banner for hosts, IP if only one specified
 			if options[:hosts]
 				Menu.opts[:hosts] = parse_addr(options[:hosts])
-				Menu.update_banner(color_banner("#{Menu.opts[:hosts].length} hosts identified"), :hosts) if Menu.opts[:hosts] 
+				if Menu.opts[:hosts].length > 1 and Menu.opts[:hosts]
+					Menu.update_banner(color_banner("#{Menu.opts[:hosts].length} hosts identified"), :hosts)
+				else			
+					Menu.update_banner(color_banner("#{Menu.opts[:hosts][0]}"), :hosts)
+				end
 			end
 
+			# Update banner for credentials
 			if options[:creds] and options[:pass]
 				Menu.opts[:creds] = [[options[:creds], options[:pass]]]
 				Menu.update_banner(color_banner("#{Menu.opts[:domain]}\\#{options[:creds]}"), :creds)
@@ -54,6 +60,7 @@ class Guide < Menu
 				else
 					Menu.update_banner(color_banner("Pass: #{options[:pass]}"), :password)
 				end
+			# Update banner for credentials file
 			elsif options[:cred_file]
 				Menu.opts[:creds] = parse_creds(options[:cred_file])
 				Menu.update_banner(color_banner("#{Menu.opts[:domain]}\\#{Menu.opts[:creds].length} accounts"), :creds)

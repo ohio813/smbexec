@@ -62,7 +62,11 @@ class Poet
 			end
 
 			store_opts(@hosts, :hosts)
-			store_banner("#{@hosts.length} hosts identified", :hosts)
+			if @hosts.length > 1
+				store_banner("#{@hosts.length} hosts identified", :hosts)
+			else
+				store_banner("#{@hosts[0]}", :hosts)
+			end
 
 			# ask user for smb info. If requires and empty, keep asking
 			if creds
