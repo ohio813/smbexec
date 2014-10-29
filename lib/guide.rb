@@ -63,8 +63,12 @@ class Guide < Menu
 			# Update banner for credentials file
 			elsif options[:cred_file]
 				Menu.opts[:creds] = parse_creds(options[:cred_file])
-				Menu.update_banner(color_banner("#{Menu.opts[:domain]}\\#{Menu.opts[:creds].length} accounts"), :creds)
-				Menu.update_banner(color_banner("Pass: #{Menu.opts[:creds].length} supplied"), :password)
+        if Menu.opts[:creds].nil?
+          Menu.opts[:creds] = [['', '']]
+        else
+          Menu.update_banner(color_banner("#{Menu.opts[:domain]}\\#{Menu.opts[:creds].length} accounts"), :creds)
+          Menu.update_banner(color_banner("Pass: #{Menu.opts[:creds].length} supplied"), :password)
+        end
 			else
 				Menu.opts[:creds] = [['', '']]
 			end
