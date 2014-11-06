@@ -53,7 +53,7 @@ class Guide < Menu
 
 			# Update banner for credentials
 			if options[:creds] and options[:pass]
-				Menu.opts[:creds] = [[options[:creds], options[:pass]]]
+				Menu.opts[:creds] = [[options[:creds], options[:pass].escape!('\\"$')]]
 				Menu.update_banner(color_banner("#{Menu.opts[:domain]}\\#{options[:creds]}"), :creds)
 				if options[:pass].is_ntlm?
 					Menu.update_banner(color_banner("Pass: NTLM Hash"), :password)

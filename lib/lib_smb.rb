@@ -29,7 +29,7 @@ module Lib_smb
 					Menu.update_banner(color_banner("Pass: #{pass}"), :password)
 				end
 				Menu.opts[:creds][0][0] = temp_user unless temp_user.empty?
-				Menu.opts[:creds][0][1] = pass unless pass.empty?
+				Menu.opts[:creds][0][1] = pass.escape!('\\"$') unless pass.empty?
 			end
 		end
 
@@ -76,7 +76,7 @@ module Lib_smb
 					# Check for chars followed by : followed by chars
 					if e =~ /.+?:.+?/
 						user, pass = e.split(':')
-						cred_set = [user, pass]
+						cred_set = [user, pass.escape!('\\"$')]
 						creds << cred_set
 					else
 						print_warning("Could not parse credential set #{e}")
