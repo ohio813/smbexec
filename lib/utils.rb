@@ -393,32 +393,27 @@ end
 class String
 	# Escape characters
 	def escape!(chars = '"')
-		pattern = ''
+		pattern = []
 		slash = false
 
 		# Split string into array of characters and build out regex
 		chars.split(//).each do |char|
 			
 			# If it is a backslash we do something special to handle
-			unless char.eql? '\\' or char.eql? '$'
-				pattern << "#{char}|"
-			end
-
-			if char.eql? '$'
-				pattern << Regexp.escape('$')
-				pattern << '|'
+			unless char.eql? '\\'
+				pattern << char
 			end
 		end
-
-		# Get rid of trailing pipe
-		pattern.chomp!("|")
 
 		# Escape any odd numbered series of backslashes, regex FTW
 		regex = /(?<!\\)(\\\\)*\\(?!\\)/
 		self.gsub!(regex){|match| "\\" + match}
 
-		regex = /[#{pattern}]/
-		self.gsub!(regex){|match| "\\" + match}
+		temp = self.split('')
+		return temp.map! { |char| 
+			char = "\\#{char}" if pattern.include? char
+			char
+		}.join
 	end
 
 	# Return true if properly formated ntlm hash
