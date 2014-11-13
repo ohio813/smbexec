@@ -98,6 +98,7 @@ Just run the installer and you should be good to go! If not email me... jbrav.ha
 
 Credit where credit is due:
 * b00stfr3ak - For multiple pull requests and code contributions
+* Pasv - For the kick ass updates to the file finder module
 * wce.exe - Hernan Ochoa - An incredible tool that mimikatz CANNOT touch! - http://www.ampliasecurity.com
 * smbclient & winexe Hash Passing patch - JoMo-kun -> http://www.foofus.net/~jmk/passhash.html
 	- Patch updated for Samba 3.6.12 by exfil (Emilio Escobar)
