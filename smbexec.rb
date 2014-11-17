@@ -3,6 +3,7 @@
 raise 'Must run as root' unless Process.uid == 0 or Process.euid == 0
 
 require 'optparse'
+require 'yaml'
 options = {}
 optparse = OptionParser.new do |opts|
 
