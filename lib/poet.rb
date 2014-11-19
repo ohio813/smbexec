@@ -335,8 +335,8 @@ class Poet
 		result ||= ""
 
 		# Strip bad unicode characers caused by some language packs
-		error_check = result + stderr_bins
-    		error_check.encode!('UTF-8', 'UTF-8', :invalid => :replace)
+		error_check = result.encode!('UTF-8', 'UTF-8', :invalid => :replace) + stderr_bins.encode!('UTF-8', 'UTF-8', :invalid => :replace)
+    		error_check
 
 		# Error checking based on SMB responses
 	    	if error_check =~ /NT_STATUS_LOGON_FAILURE/
