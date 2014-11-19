@@ -94,6 +94,7 @@ class Poet
 
 			# Print title of module
 			puts
+			title ||= ""
 		      	puts color_header(self.class.title)
 
 			# Set up queue and thread array
